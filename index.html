@@ -13,12 +13,35 @@
   <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
 
   <style>
-    .red {
-      color: #ff0000;
-    }
-
     .none {
       display: none;
+    }
+
+    body {
+      background: rgba(0, 102, 255, 0.38);
+      font-family: sans-serif;
+    }
+
+    p {
+      margin: 0 0 5px;
+    }
+
+    .article {
+      background: #FFF;
+      border: 1px solid rgba(0, 89, 181, 0.82);
+      width: 600px;
+      margin: 0 0 5px;
+      box-shadow: 2px 2px 5px -1px rgb(0, 81, 202);
+      padding: 3px 5px;
+    }
+
+    .news__author {
+      text-decoration: underline;
+      color: #007DDC;
+    }
+    .news__count {
+      margin: 10px 0 0 0;
+      display: block;
     }
   </style>
 </head>
@@ -42,32 +65,39 @@
         author: 'Author 3',
         text: 'Text 3'
       }
-    ]
+    ];
 
-    const Comments = () => {
-      return <p>Нет комментариев</p>
+    class Article extends React.Component {
+      render() {
+        const {author, text} = this.props.data;
+
+        return(
+          <div className="article">
+            <p className="news__author">{author}:</p>
+            <p className="news__text">{text}</p>
+          </div>
+        )
+      }
     }
 
     class News extends React.Component {
-      render() {
+      renderNews = () => {
         const {data} = this.props;
 
-        let newsTemplate = <p>Новостей нет</p>
+        let newsTemplate = <p>Новостей нет</p>;
         if (data.length) {
-          newsTemplate = data.map((item, index) => {
-            return(
-              <div key={item.id}>
-                <p className="news__author">{item.author}:</p>
-                <p className="news__text">{item.text}</p>
-              </div>
-            )
-          })
+          newsTemplate = data.map((item, index) => <Article data={item} key={item.id} />)
         }
 
+        return newsTemplate;
+      }
+
+      render() {
+        const {data} = this.props;
+        
         return (
           <div className="news">
-              {newsTemplate}
-              {/*<strong className={data.length ? '' : 'none'}>Всего новостей: {data.length}</strong>*/}
+              {this.renderNews()}
               {data.length ? <strong>Всего новостей: {data.length}</strong> : null}
           </div>
         )
@@ -76,8 +106,8 @@
 
     const App = () => {
       return <React.Fragment>
-          <News data={myNews} />
-          <Comments />
+          <h3>Новости</h3>
+          <News data={myNews} />          
         </React.Fragment>
     }
 
