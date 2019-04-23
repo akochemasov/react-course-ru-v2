@@ -15,8 +15,12 @@
   <div id="root"></div>
 
   <script type="text/babel">
+    const App = () => {
+      return <p>Я компонент</p>
+    }
+
     ReactDOM.render(
-      <h1>Hello, world</h1>,
+      <App/>,
       document.getElementById('root')
     )
   </script>
