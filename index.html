@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Chapter 3</title>
+  <title>Chapter 5</title>
 
   <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
@@ -23,23 +23,35 @@
 
   <script type="text/babel">
     const App = () => {
-      return <p>Это компонент App</p>
+      return <React.Fragment>
+          <News />
+          <Comments />
+        </React.Fragment>
+    }
+
+    const Comments = () => {
+      return <p>Нет комментариев</p>
+    }
+
+    const News = () => {
+      return <p>Новостей нет</p>
     }
 
     class BigApp extends React.Component {
       render() {
         return (
-          <div>
+          <React.Fragment>
             <h1>Это компонент BigApp</h1>
             <p className='red'>Вложенный компонент</p>
             <App />
-          </div>
+            <News />
+          </React.Fragment>
         )
       }
     }
 
     ReactDOM.render(
-      <BigApp />,
+      <App />,
       document.getElementById('root')
     )
   </script>
