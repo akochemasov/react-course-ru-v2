@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Chapter 5</title>
+  <title>Chapter 6 - props</title>
 
   <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
@@ -22,32 +22,49 @@
   <div id="root"></div>
 
   <script type="text/babel">
-    const App = () => {
-      return <React.Fragment>
-          <News />
-          <Comments />
-        </React.Fragment>
-    }
+    const myNews = [
+      {
+        author: 'Author 1',
+        text: 'Text 1'
+      },
+      {
+        author: 'Author 2',
+        text: 'Text 2'
+      },
+      {
+        author: 'Author 3',
+        text: 'Text 3'
+      }
+    ]
 
     const Comments = () => {
       return <p>Нет комментариев</p>
     }
 
-    const News = () => {
-      return <p>Новостей нет</p>
-    }
-
-    class BigApp extends React.Component {
+    class News extends React.Component {
       render() {
+        const newsTemplate = this.props.data.map((item, index) => {
+          return(
+            <div key={index}>
+              <p className="news__author">{item.author}:</p>
+              <p className="news__text">{item.text}</p>
+            </div>
+          )
+        })
+
+        console.log(newsTemplate)
+
         return (
-          <React.Fragment>
-            <h1>Это компонент BigApp</h1>
-            <p className='red'>Вложенный компонент</p>
-            <App />
-            <News />
-          </React.Fragment>
+          <div className="news">{newsTemplate}</div>
         )
       }
+    }
+
+    const App = () => {
+      return <React.Fragment>
+          <News data={myNews} />
+          <Comments />
+        </React.Fragment>
     }
 
     ReactDOM.render(
