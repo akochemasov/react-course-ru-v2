@@ -8,6 +8,7 @@
 
   <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
 
   <!-- Не используйте это в production -->
   <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
@@ -79,6 +80,10 @@
         )
       }
     }
+    Article.propTypes = {
+      author: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired
+    }
 
     class News extends React.Component {
       renderNews = () => {
@@ -94,7 +99,7 @@
 
       render() {
         const {data} = this.props;
-        
+
         return (
           <div className="news">
               {this.renderNews()}
@@ -103,11 +108,14 @@
         )
       }
     }
+    News.propTypes = {
+      data: PropTypes.array.isRequired
+    }
 
     const App = () => {
       return <React.Fragment>
           <h3>Новости</h3>
-          <News data={myNews} />          
+          <News data={myNews} />
         </React.Fragment>
     }
 
