@@ -81,8 +81,10 @@
       }
     }
     Article.propTypes = {
-      author: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired
+      data: PropTypes.shape({
+        author: PropTypes.string.isRequired,
+        text: PropTypes.string.isRequired
+      })
     }
 
     class News extends React.Component {
