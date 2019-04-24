@@ -171,7 +171,8 @@
     class Add extends React.Component {
       state = {
         author: '',
-        text: ''
+        text: '',
+        isAccept: false
       }
 
       showHandler = (e) => {
@@ -191,17 +192,23 @@
         })
       }
 
+      checkboxAcceptHandler = (e) => {
+        this.setState({
+          isAccept: e.currentTarget.checked
+        })
+      }
+
       render() {
-        const {author, text} = this.state;
+        const {author, text, isAccept} = this.state;
 
         return(
           <form className="add">
             <input type="text" className="add__author" placeholder="Имя" onChange={this.inputAuthorChangeHandler} value={author} />
             <textarea type="text" className="add__text" placeholder="Текст новости" onChange={this.inputTextChangeHandler} value={text}></textarea>
             <label>
-              <input type="checkbox" />Я согласен с правилами
+              <input type="checkbox" onChange={this.checkboxAcceptHandler} />Я согласен с правилами
             </label>
-            <button className="add__btn" onClick={this.showHandler}>Добавить новость</button>
+            <button className="add__btn" onClick={this.showHandler} disabled={!isAccept}>Добавить новость</button>
           </form>
         )
       }
