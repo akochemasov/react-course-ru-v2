@@ -40,9 +40,14 @@
       text-decoration: underline;
       color: #007DDC;
     }
+
     .news__count {
       margin: 10px 0 0 0;
       display: block;
+    }
+
+    .test-input {
+      margin: 0 5px 5px 0;
     }
   </style>
 </head>
@@ -131,9 +136,37 @@
       data: PropTypes.array.isRequired
     }
 
+    class TestInput extends React.Component {
+      state = {
+        value: ''
+      }
+
+      inputChangeHandler = (e) => {
+        this.setState({
+          value: e.target.value
+        })
+      }
+
+      showHandler = () => {
+        alert(this.state.value)
+      }
+
+      render() {
+        const {value} = this.state;
+
+        return(
+          <React.Fragment>
+            <input className="test-input" value={value} onChange={this.inputChangeHandler} placeholder="Введите значение"/>
+            <button onClick={this.showHandler}>Показать</button>
+          </React.Fragment>
+        )
+      }
+    }
+
     const App = () => {
       return <React.Fragment>
           <h3>Новости</h3>
+          <TestInput />
           <News data={myNews} />
         </React.Fragment>
     }
