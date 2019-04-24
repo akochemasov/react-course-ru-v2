@@ -79,23 +79,18 @@
       moreClickHandler = () => {
         this.setState({
           isShowBigText: !this.state.isShowBigText
-        }, () => {
-          console.debug('state изменился')
         })
       }
 
       render() {
         const {author, text, bigText} = this.props.data;
         const {isShowBigText} = this.state;
-        console.debug('render', this);
 
         return(
           <div className="article">
             <p className="news__author">{author}:</p>
             <p className="news__text">{text}</p>
             <button onClick={this.moreClickHandler}>Подробнее</button>
-            {/* это комментарий */}
-            {/*this.state.isShowBigText ? <p className="news__big-text">{bigText}</p> : null*/}
             {isShowBigText && <p className="news__big-text">{bigText}</p>}
           </div>
         )
@@ -110,10 +105,6 @@
     }
 
     class News extends React.Component {
-      state = {
-        counter: 0
-      }
-
       renderNews = () => {
         const {data} = this.props;
 
@@ -125,22 +116,13 @@
         return newsTemplate;
       }
 
-      allNewsClickHandler = () => {
-        console.debug('click')
-        this.setState({
-          counter: this.state.counter + 1
-        })
-      }
-
       render() {
         const {data} = this.props;
-        const {counter} = this.state;
 
         return (
           <div className="news">
               {this.renderNews()}
-              {data.length ? <strong onClick={this.allNewsClickHandler}>Всего новостей: {data.length}</strong> : null}
-              <p>Количество кликов по тексту "Всего новостей": {counter}</p>
+              {data.length ? <strong>Всего новостей: {data.length}</strong> : null}              
           </div>
         )
       }
