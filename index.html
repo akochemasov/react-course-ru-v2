@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Chapter 11 - state</title>
+  <title>Chapter 13. Uncontrolled component</title>
 
   <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
@@ -137,26 +137,24 @@
     }
 
     class TestInput extends React.Component {
-      state = {
-        value: ''
-      }
-
-      inputChangeHandler = (e) => {
-        this.setState({
-          value: e.target.value
-        })
+      constructor(props) {
+        super(props);
+        this.input = React.createRef();  
       }
 
       showHandler = () => {
-        alert(this.state.value)
+        alert(this.input.current.value)
       }
 
       render() {
-        const {value} = this.state;
-
         return(
           <React.Fragment>
-            <input className="test-input" value={value} onChange={this.inputChangeHandler} placeholder="Введите значение"/>
+            <input 
+              className="test-input" 
+              placeholder="Введите значение" 
+              ref={this.input}
+              defaultValue=""
+              />
             <button onClick={this.showHandler}>Показать</button>
           </React.Fragment>
         )
