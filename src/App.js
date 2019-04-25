@@ -1,3 +1,7 @@
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import './App.css';
+
 const myNews = [
   {
     id: 1,
@@ -20,7 +24,7 @@ const myNews = [
 ];
 
 // Article
-class Article extends React.Component {
+class Article extends Component {
   state = {
     isShowBigText: false
   }
@@ -54,7 +58,7 @@ Article.propTypes = {
 }
 
 // News
-class News extends React.Component {
+class News extends Component {
   renderNews = () => {
     const {data} = this.props;
 
@@ -82,7 +86,7 @@ News.propTypes = {
 }
 
 // Add news
-class Add extends React.Component {
+class Add extends Component {
   state = {
     author: '',
     text: '',
@@ -137,7 +141,7 @@ Add.propTypes = {
 }
 
 // App
-class App extends React.Component {
+class App extends Component {
   state = {
     news: myNews
   }
@@ -154,16 +158,13 @@ class App extends React.Component {
 
   render() {
     return(
-      <React.Fragment>
-      <h3>Новости</h3>
-      <Add onAddNews={this.onAddNews} />
-      <News data={this.state.news} />
-    </React.Fragment>
+      <div className="app">
+        <h3>Новости</h3>
+        <Add onAddNews={this.onAddNews} />
+        <News data={this.state.news} />
+      </div>
     )
     }
 }
 
-ReactDOM.render(
-  <App />,
-  document.getElementById('root')
-)
+export default App;
