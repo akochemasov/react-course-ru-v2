@@ -12,8 +12,22 @@ class News extends Component {
     filteredNews: this.props.data
   }
 
-  componentWillReceiveProps = (nextProps) => {
-    const nextListNews = [...nextProps.data];
+  // componentWillReceiveProps = (nextProps) => {
+  //   const nextListNews = [...nextProps.data];
+
+  //   nextListNews.forEach(item => {
+  //     if (item.bigText.toLowerCase().includes(SPAM_WORD)) {
+  //       item.bigText = SPAG_MSG;
+  //     }
+  //   })
+
+  //   this.setState({
+  //     filteredNews: nextListNews
+  //   })
+  // }
+
+  static getDerivedStateFromProps(props, state) {
+    const nextListNews = [...props.data];
 
     nextListNews.forEach(item => {
       if (item.bigText.toLowerCase().includes(SPAM_WORD)) {
@@ -21,9 +35,9 @@ class News extends Component {
       }
     })
 
-    this.setState({
+    return {
       filteredNews: nextListNews
-    })
+    }
   }
 
   renderNews = () => {
