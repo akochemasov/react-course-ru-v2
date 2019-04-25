@@ -177,7 +177,9 @@
 
       showHandler = (e) => {
         e.preventDefault();
-        console.debug(this.state.author, this.state.text);
+
+        const {author, text} = this.state;
+        console.debug(`Автор: ${author}. Текст ${text}`);
       }
 
       inputAuthorChangeHandler = (e) => {
@@ -198,8 +200,13 @@
         })
       }
 
+      validate = () => {
+        const {author, text, isAccept} = this.state;  
+        return author.trim() && text.trim() && isAccept
+      }
+
       render() {
-        const {author, text, isAccept} = this.state;
+        const {author, text} = this.state;
 
         return(
           <form className="add">
@@ -208,7 +215,7 @@
             <label>
               <input type="checkbox" onChange={this.checkboxAcceptHandler} />Я согласен с правилами
             </label>
-            <button className="add__btn" onClick={this.showHandler} disabled={!isAccept}>Добавить новость</button>
+            <button className="add__btn" onClick={this.showHandler} disabled={!this.validate()}>Добавить новость</button>
           </form>
         )
       }
