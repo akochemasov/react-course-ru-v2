@@ -86,14 +86,15 @@ class Add extends React.Component {
   state = {
     author: '',
     text: '',
+    bigText: '',
     isAccept: false
   }
 
   showHandler = (e) => {
     e.preventDefault();
 
-    const {author, text} = this.state;
-    this.props.onAddNews({author, text});    
+    const {author, text, bigText} = this.state;
+    this.props.onAddNews({author, text, bigText});
   }
 
   inputChangeHandler = (e) => {
@@ -111,17 +112,18 @@ class Add extends React.Component {
   }
 
   validate = () => {
-    const {author, text, isAccept} = this.state;  
-    return author.trim() && text.trim() && isAccept
+    const {author, text, bigText, isAccept} = this.state;  
+    return author.trim() && text.trim() && bigText.trim() && isAccept
   }
 
   render() {
-    const {author, text} = this.state;
+    const {author, text, bigText} = this.state;
 
     return(
       <form className="add">
         <input id="author" type="text" className="add__author" placeholder="Имя" onChange={this.inputChangeHandler} value={author} />
         <textarea id="text" type="text" className="add__text" placeholder="Текст новости" onChange={this.inputChangeHandler} value={text}></textarea>
+        <textarea id="bigText" type="text" className="add__big-text" placeholder="Подробный текст новости" onChange={this.inputChangeHandler} value={bigText}></textarea>
         <label>
           <input type="checkbox" onChange={this.checkboxAcceptHandler} />Я согласен с правилами
         </label>
@@ -140,10 +142,11 @@ class App extends React.Component {
     news: myNews
   }
 
-  onAddNews = ({author, text}) => {
+  onAddNews = ({author, text, bigText}) => {
     const {news} = this.state;
-    const nextNews = [...this.state.news, {id: news.length + 1, author, text, bigText: ''}]
+    const nextNews = [...this.state.news, {id: news.length + 1, author, text, bigText}]
 
+    console.log(nextNews)
     this.setState({
       news: nextNews
     })
