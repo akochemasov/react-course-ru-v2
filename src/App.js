@@ -38,7 +38,6 @@ class App extends Component {
     const {news} = this.state;
     const nextNews = [...this.state.news, {id: news.length + 1, author, text, bigText}]
 
-    console.log(nextNews)
     this.setState({
       news: nextNews
     })
@@ -46,7 +45,7 @@ class App extends Component {
 
   render() {
     const {news, isLoading} = this.state;
-
+    
     return(
       <div className="app">
         <AddNews onAddNews={this.onAddNews} />
