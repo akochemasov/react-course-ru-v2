@@ -4,11 +4,34 @@ import AddNews from './components/AddNews';
 
 import './App.css';
 
-import newsData from './data/newsData.json';
+// import newsData from './data/newsData.json';
 
 class App extends Component {
   state = {
-    news: newsData
+    news: null,
+    isLoading: false
+  }
+
+  componentDidMount = () => {
+    this.setState({isLoading: true})
+
+    fetch('http://localhost:3001/data/newsData.json')
+      .then(response => {
+        return response.json()
+      })
+      .then(data => {
+        this.setState({
+          news: data,
+          isLoading: false
+        })
+
+        // setTimeout(() => {
+        //   this.setState({
+        //     news: data,
+        //     isLoading: false
+        //   })
+        // }, 3000)    //искуственная задержка
+      })
   }
 
   onAddNews = ({author, text, bigText}) => {
@@ -22,11 +45,14 @@ class App extends Component {
   }
 
   render() {
+    const {news, isLoading} = this.state;
+
     return(
       <div className="app">
-        <h3>Новости</h3>
         <AddNews onAddNews={this.onAddNews} />
-        <News data={this.state.news} />
+        <h3>Новости</h3>        
+        {isLoading && <p>Загружаю...</p>}
+        {Array.isArray(news) && <News data={news} />}
       </div>
     )
     }
