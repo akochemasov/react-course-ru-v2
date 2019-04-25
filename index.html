@@ -182,19 +182,15 @@
         console.debug(`Автор: ${author}. Текст ${text}`);
       }
 
-      inputAuthorChangeHandler = (e) => {
+      inputChangeHandler = (e) => {
+        const {id, value} = e.currentTarget;
+
         this.setState({
-          author: e.currentTarget.value
+          [id]: value
         })
       }
 
-      inputTextChangeHandler = (e) => {
-        this.setState({
-          text: e.currentTarget.value
-        })
-      }
-
-      checkboxAcceptHandler = (e) => {
+      checkboxAcceptHandler = (e) => {        
         this.setState({
           isAccept: e.currentTarget.checked
         })
@@ -210,8 +206,8 @@
 
         return(
           <form className="add">
-            <input type="text" className="add__author" placeholder="Имя" onChange={this.inputAuthorChangeHandler} value={author} />
-            <textarea type="text" className="add__text" placeholder="Текст новости" onChange={this.inputTextChangeHandler} value={text}></textarea>
+            <input id="author" type="text" className="add__author" placeholder="Имя" onChange={this.inputChangeHandler} value={author} />
+            <textarea id="text" type="text" className="add__text" placeholder="Текст новости" onChange={this.inputChangeHandler} value={text}></textarea>
             <label>
               <input type="checkbox" onChange={this.checkboxAcceptHandler} />Я согласен с правилами
             </label>
