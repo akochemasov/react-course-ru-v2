@@ -6,6 +6,9 @@ import './App.css';
 
 // import newsData from './data/newsData.json';
 
+const SPAM_WORD = 'test';
+const SPAG_MSG = 'СПАМ';
+
 class App extends Component {
   state = {
     news: null,
@@ -34,8 +37,30 @@ class App extends Component {
       })
   }
 
+  static getDerivedStateFromProps(props, state) {
+    if (Array.isArray(state.news)) {
+      const nextFilteredNews = [...state.news];
+      nextFilteredNews.forEach(item => {
+        if (item.bigText.toLowerCase().includes(SPAM_WORD)) {
+          item.bigText = SPAG_MSG;
+        }
+      })
+
+      return {
+        news: nextFilteredNews
+      }
+    }
+
+    return null
+  }
+
   onAddNews = ({author, text, bigText}) => {
     const {news} = this.state;
+
+    // if (bigText.toLowerCase().includes(SPAM_WORD)) {
+    //   bigText = SPAG_MSG
+    // }
+
     const nextNews = [...this.state.news, {id: news.length + 1, author, text, bigText}]
 
     this.setState({
